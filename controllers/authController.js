@@ -357,6 +357,52 @@ exports.signup = async (req, res) => {
   }
 };
 
+// // LOGIN
+// exports.login = async (req, res) => {
+//   let { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ message: "Provide email and password" });
+//   }
+
+//   try {
+//     email = email.trim().toLowerCase();
+//     password = password.trim();
+
+//     console.log("Login attempt:", { email, password }); // debug
+
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(400).json({ message: "Invalid credentials" });
+//     }
+
+//     if (password !== user.password) {
+//       return res.status(400).json({ message: "Invalid credentials" });
+//     }
+
+//     res.json({
+//       message: "Login successful",
+//       user: {
+//         _id: user._id,
+//         full_name: user.full_name,
+//         email: user.email,
+//         phone_number: user.phone_number,
+//         password: user.password // ⚠️ plain for now
+//       }
+//     });
+//   } catch (err) {
+//     console.error("Login error:", err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+
+
+
+
+
+
+
 // LOGIN
 exports.login = async (req, res) => {
   let { email, password } = req.body;
@@ -369,7 +415,7 @@ exports.login = async (req, res) => {
     email = email.trim().toLowerCase();
     password = password.trim();
 
-    console.log("Login attempt:", { email, password }); // debug
+    console.log("Login attempt:", { email, password });
 
     const user = await User.findOne({ email });
     if (!user) {
@@ -387,7 +433,17 @@ exports.login = async (req, res) => {
         full_name: user.full_name,
         email: user.email,
         phone_number: user.phone_number,
-        password: user.password // ⚠️ plain for now
+        password: user.password, // ⚠️ plain for now
+        profile_picture: user.profile_picture,
+        city: user.city,
+        gender: user.gender,
+        age_group: user.age_group,
+        travel_interests: user.travel_interests,
+        signup_method: user.signup_method,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+        is_verified: user.is_verified,
+        status: user.status
       }
     });
   } catch (err) {
@@ -395,11 +451,3 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
-
-
-
-
-
-
-
